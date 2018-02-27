@@ -1,0 +1,110 @@
+
+
+
+
+
+
+
+
+
+menubar1 = uimenu('Label','File','ForegroundColor','blue');
+           uimenu(menubar1,'Label','New','ForegroundColor','blue','Accelerator','N','ForegroundColor','blue','callback','HideObject(panel4)');
+           uimenu(menubar1,'Label','Open','ForegroundColor','blue','Accelerator','O','Callback','OpenImage','ForegroundColor','blue');
+           uimenu(menubar1,'Label','Save','Separator','on','Callback','save','Accelerator','S','ForegroundColor','blue');
+           uimenu(menubar1,'Label','Save As','Callback','SaveAsImage','ForegroundColor','blue');
+           uimenu(menubar1,'Label','Exit','Callback','exit','Separator','on','Accelerator','Q','ForegroundColor','blue');
+          
+        
+menubar2 = uimenu('Label','Image','ForegroundColor','blue');
+I1=        uimenu(menubar2,'Label','Adjustment','ForegroundColor','blue');
+           uimenu(I1,'Label','Brightness/Contrast','callback','BrightnessContrast','ForegroundColor','blue');
+           uimenu(I1,'Label','Negative','ForegroundColor','blue','callback','negative(get(handles.axes1))');
+           uimenu(I1,'Label','Gray Scale','ForegroundColor','blue');
+           
+I2=        uimenu(menubar2,'Label','Resize','ForegroundColor','blue');
+SI1=       uimenu(I2,'Label','Direct Mapping','ForegroundColor','blue');
+           uimenu(SI1,'Label','By Factor','ForegroundColor','blue');
+           uimenu(SI1,'Label','One-Oreder','ForegroundColor','blue');
+SI2=       uimenu(I2,'Label','Reverse Mapping','ForegroundColor','blue');
+           uimenu(SI2,'Label','One-Oreder','ForegroundColor','blue');
+           
+           uimenu(menubar2,'Label','Calculations','callback','Callculations','Separator','on','ForegroundColor','blue');
+           uimenu(menubar2,'Label','Qunatization','ForegroundColor','blue');
+           uimenu(menubar2,'Label','Histogram','ForegroundColor','blue');
+           
+menubar3 = uimenu('Label','Illumination','ForegroundColor','blue');
+           uimenu(menubar3,'Label','Histogram Matching','callback','HistogramMatching','ForegroundColor','blue');
+           uimenu(menubar3,'Label','Equalization','ForegroundColor','blue');
+           uimenu(menubar3,'Label','Gamma Correction','ForegroundColor','blue');
+           uimenu(menubar3,'Label','Log','ForegroundColor','blue');
+           uimenu(menubar3,'Label','single retinex','ForegroundColor','blue');
+           
+           
+           
+menubar4 = uimenu('Label','Filters','ForegroundColor','blue');
+I4=        uimenu(menubar4,'Label','Spatial Domain','ForegroundColor','blue');
+I5=        uimenu(menubar4,'Label','Frequency Domain','ForegroundColor','blue');
+
+           uimenu(I4,'Label','Convert To Sptial Domain','ForegroundColor','blue');
+           uimenu(I5,'Label','Convert To Ferquency Domain','ForegroundColor','blue');
+           
+I6=        uimenu(I5,'Label','Add Noise','Separator','on','ForegroundColor','blue');
+           uimenu(I6,'Label','Salt and Pepper','ForegroundColor','blue');
+           uimenu(I6,'Label','Gaussian Noise','ForegroundColor','blue');
+           uimenu(I6,'Label','Uiform Noise','ForegroundColor','blue');
+           uimenu(I6,'Label','Periodic Noise','ForegroundColor','blue');
+           uimenu(I6,'Label','Gamma Noise','ForegroundColor','blue');
+           uimenu(I6,'Label','Exponential Noise','ForegroundColor','blue');
+           uimenu(I6,'Label','Rayleigh Noise','ForegroundColor','blue');
+
+I7=        uimenu(I4,'Label','Bluring','Separator','on','ForegroundColor','blue');
+           uimenu(I7,'Label','Box Filter','ForegroundColor','blue','Callback', 'main');
+           uimenu(I7,'Label','Weighted Filter','ForegroundColor','blue');
+           
+          
+           
+I8=        uimenu(I5,'Label','Bluring','ForegroundColor','blue');
+I9=        uimenu(I8,'Label','Low pass Filter','ForegroundColor','blue');
+           uimenu(I9,'Label','Gaussian Filter','ForegroundColor','blue');
+           uimenu(I9,'Label','Butter Worth Filter','ForegroundColor','blue');
+           
+           
+I10=       uimenu(I8,'Label','High Pass Filter','ForegroundColor','blue');
+           uimenu(I10,'Label','Gaussian Filter','ForegroundColor','blue');
+           uimenu(I10,'Label','Butter Worth Filter','ForegroundColor','blue');
+           uimenu(I10,'Label','Geomtric Filter','ForegroundColor','blue');
+           
+
+I11=       uimenu(I5,'Label','Sharpening','ForegroundColor','blue');         
+I12=       uimenu(I11,'Label','Low pass Filter','ForegroundColor','blue');
+           uimenu(I12,'Label','Ideal Filter','ForegroundColor','blue');
+           
+I13=       uimenu(I11,'Label','High Pass Filter','ForegroundColor','blue');
+           uimenu(I13,'Label','Ideal Filter','ForegroundColor','blue');
+           
+I3=        uimenu(I4,'Label','Sharpening','ForegroundColor','blue');
+           uimenu(I3,'Label','Laplacian Filter','ForegroundColor','blue');
+           uimenu(I3,'Label','Horizontal Filter','ForegroundColor','blue');
+           uimenu(I3,'Label','Vertical Filter','ForegroundColor','blue');
+           uimenu(I3,'Label','Right-Diagonal Filter','ForegroundColor','blue');
+           uimenu(I3,'Label','Left-Diagonal Filter','ForegroundColor','blue');
+           
+I16=       uimenu(I4,'Label','Edge Detection','ForegroundColor','blue');
+           uimenu(I16,'Label','Laplacian Filter','ForegroundColor','blue');
+           uimenu(I16,'Label','Horizontal Filter','ForegroundColor','blue');
+           uimenu(I16,'Label','Vertical Filter','ForegroundColor','blue');
+           uimenu(I16,'Label','Right-Diagonal Filter','ForegroundColor','blue');
+           uimenu(I16,'Label','Left-Diagonal Filter','ForegroundColor','blue');
+
+
+I14=       uimenu(I4,'Label','Non Linear Masks','ForegroundColor','blue');
+           uimenu(I14,'Label','Max','ForegroundColor','blue');
+           uimenu(I14,'Label','Min','ForegroundColor','blue');
+           uimenu(I14,'Label','Median','ForegroundColor','blue');
+           
+I15=       uimenu(I5,'Label','Non Linear Masks','ForegroundColor','blue');
+           uimenu(I15,'Label','Mid Point','ForegroundColor','blue');
+            
+menubar5 = uimenu('Label','Help','ForegroundColor','blue');
+           uimenu(menubar5,'Label','About Program','ForegroundColor','blue');
+           uimenu(menubar5,'Label','About Us','ForegroundColor','blue');

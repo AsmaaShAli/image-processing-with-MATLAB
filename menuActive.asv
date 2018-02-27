@@ -1,0 +1,21 @@
+function menuActive(ImageMenu,IlluminationMenu,FiltersMenu,NewMenu,SaveMenu,Save_As_Menu,uipushtool1,uipushtool3,uitoggletool1,uitoggletool2,uitoggletool3,uipushtool4)
+global ImageMenu;
+global IlluminationMenu;
+global FiltersMenu;
+global NewMenu;
+global SaveMenu;
+global Save_As_Menu;
+global uipushtool1;
+global uipushtool3;
+global uitoggletool1;
+gluitoggletool2;
+uitoggletool3;
+uipushtool4;
+
+set(ImageMenu,'Enable','on');
+set(IlluminationMenu,'Enable','on');
+set(FiltersMenu,'Enable','on');
+set(NewMenu,'Enable','on');
+set(SaveMenu,'Enable','on');
+set(Save_As_Menu,'Enable','on');
+end

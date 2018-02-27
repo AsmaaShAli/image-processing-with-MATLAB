@@ -1,0 +1,218 @@
+function varargout = BrightnessContrast(varargin)
+% BRIGHTNESSCONTRAST M-file for BrightnessContrast.fig
+%      BRIGHTNESSCONTRAST, by itself, creates a new BRIGHTNESSCONTRAST or raises the existing
+%      singleton*.
+%
+%      H = BRIGHTNESSCONTRAST returns the handle to a new BRIGHTNESSCONTRAST or the handle to
+%      the existing singleton*.
+%
+%      BRIGHTNESSCONTRAST('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in BRIGHTNESSCONTRAST.M with the given input arguments.
+%
+%      BRIGHTNESSCONTRAST('Property','Value',...) creates a new BRIGHTNESSCONTRAST or raises the
+%      existing singleton*.  Starting from the left, property value pairs are
+%      applied to the GUI before BrightnessContrast_OpeningFcn gets called.  An
+%      unrecognized property name or invalid value makes property application
+%      stop.  All inputs are passed to BrightnessContrast_OpeningFcn via varargin.
+%
+%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
+%      instance to run (singleton)".
+%
+% See also: GUIDE, GUIDATA, GUIHANDLES
+
+% Edit the above text to modify the response to help BrightnessContrast
+
+% Last Modified by GUIDE v2.5 24-Dec-2010 06:14:38
+
+% Begin initialization code - DO NOT EDIT
+gui_Singleton = 1;
+gui_State = struct('gui_Name',       mfilename, ...
+                   'gui_Singleton',  gui_Singleton, ...
+                   'gui_OpeningFcn', @BrightnessContrast_OpeningFcn, ...
+                   'gui_OutputFcn',  @BrightnessContrast_OutputFcn, ...
+                   'gui_LayoutFcn',  [] , ...
+                   'gui_Callback',   []);
+if nargin && ischar(varargin{1})
+    gui_State.gui_Callback = str2func(varargin{1});
+end
+
+if nargout
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+else
+    gui_mainfcn(gui_State, varargin{:});
+end
+% End initialization code - DO NOT EDIT
+
+
+% --- Executes just before BrightnessContrast is made visible.
+function BrightnessContrast_OpeningFcn(hObject, eventdata, handles, varargin)
+% This function has no output args, see OutputFcn.
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% varargin   command line arguments to BrightnessContrast (see VARARGIN)
+
+% Choose default command line output for BrightnessContrast
+global img;
+handles.output = hObject;
+
+img= getappdata(0,'Image_gui1');
+axes(handles.axes1);
+imshow(img);
+
+
+% Update handles structure
+ guidata(hObject, handles);
+
+% UIWAIT makes BrightnessContrast wait for user response (see UIRESUME)
+% uiwait(handles.figure1);
+
+
+% --- Outputs from this function are returned to the command line.
+function varargout = BrightnessContrast_OutputFcn(hObject, eventdata, handles) 
+% varargout  cell array for returning output args (see VARARGOUT);
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Get default command line output from handles structure
+varargout{1} = handles.output;
+
+
+% --- Executes on button press in pushbutton2.
+function pushbutton2_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+global img;
+[p,q,n] = size(img); 
+
+NewMin=get(handles.edit1,'string');
+NewMax=get(handles.edit2,'string');
+NewMin=str2num(NewMin);
+NewMax=str2num(NewMax);
+img=double(img);
+for l=1:n
+    OldMin=min(min(img(:,:,l)));
+    OldMax=max(max(img(:,:,l)));
+    for i=1:p
+        for j=1:q
+            OldVal=img(i,j,l);
+            NewVal = ((OldVal - OldMin)/(OldMax - OldMin)) * (NewMax - NewMin) + NewMin;
+            new(i,j,l)=NewVal;
+        end
+    end
+end
+axes(handles.axes2);
+img=uint8(new);
+imshow(img);
+setappdata(0,'Image_gui2',getimage(handles.axes2));
+
+% --- Executes on button press in pushbutton1.
+function pushbutton1_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global img;
+[p,q,n]=size(img);
+a = get(handles.edit3,'String');
+offset=str2num(a);
+for l=1:n
+for i=1:p
+    for j=1:q
+        new(i,j,l)=img(i,j,l)+offset;
+    end
+end
+end
+axes(handles.axes2);
+img=new;
+imshow(img);
+setappdata(0,'Image_gui2',getimage(handles.axes2));
+
+
+function edit1_Callback(hObject, eventdata, handles)
+% hObject    handle to edit1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit1 as text
+%        str2double(get(hObject,'String')) returns contents of edit1 as a double
+global E1;
+E1=handles.edit1;
+global B1;
+B1=handles.pushbutton2;
+set(B1,'Enable','off');
+if(E1 ~= '')
+    
+    
+    
+
+
+% --- Executes during object creation, after setting all properties.
+function edit1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit2_Callback(hObject, eventdata, handles)
+% hObject    handle to edit2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit2 as text
+%        str2double(get(hObject,'String')) returns contents of edit2 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit3_Callback(hObject, eventdata, handles)
+% hObject    handle to edit3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit3 as text
+%        str2double(get(hObject,'String')) returns contents of edit3 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pushbutton3.
+function pushbutton3_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
